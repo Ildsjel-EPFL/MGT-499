@@ -70,6 +70,17 @@ def create_year_pre_post_dummies(df : pd.DataFrame) -> pd.DataFrame:
     df["Post"] = post_dummies
     return df
 
+def create_years_pre_post_dummies(df : pd.DataFrame) -> pd.DataFrame:
+    oyb_dummies = [1 if 72<=i<80 else 0 for i in range(df.shape[0])]
+    tyb_dummies = [1 if 64<=i<72 else 0 for i in range(df.shape[0])]
+    oya_dummies = [1 if i in [98, 99, 102, 103, 104, 105, 108, 109] else 0 for i in range(df.shape[0])]
+    tya_dummies = [1 if i in [106, 107, 110, 111, 112, 113, 114, 115] else 0 for i in range(df.shape[0])]
+    df["Two_Years_Before"] = tyb_dummies
+    df["One_Year_Before"] = oyb_dummies
+    df["One_Year_After"] = oya_dummies
+    df["Two_Years_After"] = tya_dummies
+    return df
+
 def plot_ratio(df : pd.DataFrame) -> None:
     time = np.linspace(0, 59, 60)
     _, ax = plt.subplots(figsize=(15, 10))
@@ -98,7 +109,7 @@ def plot_comparative(df : pd.DataFrame) -> pd.DataFrame:
     ax.axvspan(40, 50, color="grey", alpha=0.2)
     ax.hlines(0, xmin=0, xmax=59, color="k")
     plt.xlim(0, 59)
-    plt.ylim(-0.2, 0.2)
+    plt.ylim(-0.25, 0.15)
     plt.xticks([i for i in time if i%4==0], labels=[f"20{10+i}" for i in range(15) for j in range(4) if j==0])
     plt.ylabel("Difference with 2019Q4 [%]")
     plt.legend()
