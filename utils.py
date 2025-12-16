@@ -1,6 +1,5 @@
 import pandas as pd
 from typing import List, Dict, Any
-import statsmodels.formula.api as smf
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -81,6 +80,7 @@ def plot_ratio(df : pd.DataFrame) -> None:
     ax.axvspan(40, 50, color="grey", alpha=0.2)
     plt.xlim(0, 59)
     plt.xticks([i for i in time if i%4==0], labels=[f"20{10+i}" for i in range(15) for j in range(4) if j==0])
+    plt.ylabel("Employment-to-population ratio [%]")
     plt.legend()
     plt.grid()
     plt.title("Evolution of the Employment-to-population ratio by genders in the restoration sector between 2010 and 2025")
@@ -100,6 +100,7 @@ def plot_comparative(df : pd.DataFrame) -> pd.DataFrame:
     plt.xlim(0, 59)
     plt.ylim(-0.2, 0.2)
     plt.xticks([i for i in time if i%4==0], labels=[f"20{10+i}" for i in range(15) for j in range(4) if j==0])
+    plt.ylabel("Difference with 2019Q4 [%]")
     plt.legend()
     plt.grid()
     plt.title("Employment-to-population ratio compared to the last quarter before Covid Lockdown by genders in the restoration sector between 2010 and 2025")
